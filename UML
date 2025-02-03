@@ -1,0 +1,33 @@
+@startuml
+participant Browser
+participant VimeoPlayer
+participant DOM
+participant Server
+
+Browser -> Browser: Load HTML & JS (containing Vimeo Player)
+activate Browser
+Browser -> VimeoPlayer: Load Vimeo Video
+activate VimeoPlayer
+VimeoPlayer --> Browser: Video Loaded
+deactivate VimeoPlayer
+
+Browser -> VimeoPlayer: interactivehotspotclicked
+activate VimeoPlayer
+VimeoPlayer -> VimeoPlayer: Extract custom payload data
+VimeoPlayer --> Browser: Hotspot Clicked Event (with custom data)
+deactivate VimeoPlayer
+
+alt Update DOM
+    Browser -> DOM: JS event listener retrieves custom data
+    activate DOM
+    DOM -> DOM: JS updates dataDisplay div
+    deactivate DOM
+else Update Server
+    Browser -> Server: Send custom data
+    activate Server
+    Server --> Browser: Acknowledgement
+    deactivate Server
+end
+
+deactivate Browser
+@enduml
