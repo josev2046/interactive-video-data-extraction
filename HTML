@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vimeo Custom Data Example</title>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <style>
+        #dataDisplay {
+            margin-top: 20px; 
+            font-weight: bold; 
+            border: 2px solid #ccc; 
+            padding: 10px; 
+            background-color: #f0f0f0; 
+        }
+    </style>
+</head>
+<body>
+<iframe id="vimeoPlayer" src="https://player.vimeo.com/video/1052332148" width="400" height="300" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+
+<div id="dataDisplay"></div>  <script>
+    const vimeoPlayer = new Vimeo.Player(document.getElementById('vimeoPlayer'));
+    const dataDisplay = document.getElementById('dataDisplay'); // Get the display div
+
+    vimeoPlayer.on('ready', function() {
+        console.log('Vimeo player is ready!');
+    });
+
+    vimeoPlayer.on('interactivehotspotclicked', function(event) {
+        console.log("Hotspot Clicked:", event);
+
+        if (event.customPayloadData) {
+            console.log("Custom Payload Data:", event.customPayloadData);
+
+            let displayContent = "<h3>Custom Payload Data:</h3><ul>"; 
+
+            for (const key in event.customPayloadData) {
+                displayContent += `<li><strong>${key}:</strong> ${event.customPayloadData[key]}</li>`;
+            }
+            displayContent += "</ul>";
+
+            dataDisplay.innerHTML = displayContent; // Set the content of the div
+
+        } else {
+            console.log("No custom payload data.");
+            dataDisplay.innerHTML = "<h3>No custom payload data available for this hotspot.</h3>"; // Display a message
+        }
+    });
+</script>
+
+</body>
+</html>
