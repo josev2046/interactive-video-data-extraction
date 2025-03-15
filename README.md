@@ -9,3 +9,6 @@ The following pattern illustrates how an interactive video in a webpage can make
 ![image](https://github.com/user-attachments/assets/815cec49-f156-416d-834f-d915bee9a8cf)
 
 
+[![DOI](https://zenodo.org/badge/926459389.svg)](https://doi.org/10.5281/zenodo.15033366)
+
+
